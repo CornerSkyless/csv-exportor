@@ -7,7 +7,7 @@
     var mod = {
       exports: {}
     };
-    factory(mod, mod.exports, global.CSV);
+    factory(mod, mod.exports, global.commaSeparatedValues);
     global.csvExportor = mod.exports;
   }
 })(this, function (module, exports, _commaSeparatedValues) {
@@ -27,17 +27,19 @@
 
   function genUrl(data, options) {
     var encoded = new _commaSeparatedValues2.default(data, options).encode();
-    var dataBlob = new Blob(['\uFEFF' + encoded], { type: 'text/plain;charset=utf-8' });
+    var dataBlob = new Blob(['\uFEFF' + encoded], { type: 'text/csv;charset=utf-8' });
     return window.URL.createObjectURL(dataBlob);
   }
 
   function downloadCsv(data, options, fileName) {
     var url = genUrl(data, options);
     var a = document.createElement('a');
+    document.body.appendChild(a);
     a.href = url;
     a.download = fileName;
     a.click();
     window.URL.revokeObjectURL(url);
+    a.remove();
   }
 
   exports.default = {
