@@ -8,7 +8,7 @@ import CSV from 'comma-separated-values';
  */
 function genUrl(data, options) {
   const encoded = new CSV(data, options).encode();
-  const dataBlob = new Blob([`\ufeff${encoded}`], { type: 'text/plain;charset=utf-8' });
+  const dataBlob = new Blob([`\ufeff${encoded}`], { type: 'text/csv;charset=utf-8' });
   return window.URL.createObjectURL(dataBlob);
 }
 
